@@ -1,0 +1,40 @@
+<!-- POST LIST -->
+<div class="col-xs-12" *ngFor="let post of posts">
+  <div class="col-xs-12">
+    <h1 *ngIf="post.title" (click)="selectPost(post.slug, post.id)" [innerHTML]="post.title"></h1>
+    <span *ngIf="post.author" class="glyphicon glyphicon-user text-muted" aria-hidden="true"></span>
+    <span *ngIf="post.author" [innerHTML]="post.author">
+    </span><!-- /author -->
+    &nbsp;<span *ngIf="post.date_published">|</span>&nbsp;
+    <span *ngIf="post.date_published" class="glyphicon glyphicon-time text-muted" aria-hidden="true"></span>
+    <span *ngIf="post.date_published" [innerHTML]="post.date_published">
+    </span><!-- /date -->
+    <hr>
+  </div><!-- /.col -->
+  <div class="col-xs-12 col-sm-4 col-md-3">
+    <img *ngIf="post.thumbnail" src="{{post.thumbnail}}" alt="{{post.title}}" class="img-responsive img-thumbnail">
+  </div><!-- /.col -->
+  <div class="col-xs-12 col-sm-8 col-md-9">
+    <article>
+      <p *ngIf="post.excerpt" [innerHTML]="post.excerpt"></p><!-- /p -->
+      <p>
+        <button *ngIf="post.slug" (click)="selectPost(post.slug, post.id)" class="btn btn-warning">Read more <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span></button><!-- /Read More -->
+      </p><!-- /p Read More -->
+    </article><!-- /article -->
+  </div><!-- /.col -->
+  <div class="col-xs-12">
+    <p></p>
+
+    <div class="btn-group" role="group" aria-label="categories">
+      <button *ngIf="post.categories" (click)="navTo('cat', post.categories[0].cat_slug, post.categories[0].cat_id)" class="btn btn-info" [innerHTML]="post.categories[0].cat_name"></button>
+    </div><!-- /.btn-group -->
+    <p></p>
+    <div class="btn-group" role="group" aria-label="tags">
+    <ng-template ngFor tag_name [ngForOf]="post.tags" let-i="index">
+      <button *ngIf="post.tags" (click)="navTo('tag', post.tags[i].tag_slug, post.tags[i].tag_id)" class="btn btn-default btn-sm" [innerHTML]="post.tags[i].tag_name"></button>
+    </ng-template>
+    </div><!-- /.btn-group -->
+    <hr>
+  </div><!-- /.col -->
+</div><!-- /.col -->
+<!-- /POST LIST -->

@@ -1,0 +1,57 @@
+<div class="col-xs-12">
+  <form style="padding-top: 10px;" class="form-inline">
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="Search..." #searchPosts (keyup.enter)="searchSubmit(searchPosts.value)" (blur)="searchSubmit(searchPosts.value); searchPosts.value='' ">
+    </div>
+    <button (click)="searchSubmit(searchPosts.value)" type="submit" class="btn btn-primary">
+      <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+    </button>
+  </form>
+  <hr>
+</div><!-- /.col Search -->
+
+<div class="col-xs-12">
+  <h3 class="text-danger">Tags <span class="glyphicon glyphicon-tag" aria-hidden="true"></span></h3>
+  <ul class="nav nav-stacked">
+    <ng-template ngFor post [ngForOf]="posts" let-i="index">
+      <ng-template [ngIf]="i < 1">
+        <ng-template ngFor name [ngForOf]="posts[i].sidebar_items" let-j="index">
+          <li>
+            <a *ngIf="posts[0].sidebar_items[j].name" (click)="setPath('tag', posts[0].sidebar_items[j].term_id)" routerLink="{{posts[0].sidebar_items[j].slug}}" routerLinkActive="active" [innerHTML]="posts[0].sidebar_items[j].name"></a>
+          </li>
+        </ng-template>
+      </ng-template>
+    </ng-template>
+  </ul><!-- /.nav-stacked -->
+  <hr>
+</div><!-- /.col Tags -->
+
+<div class="col-xs-12">
+  <h3 class="text-danger">Recommended Reading <span class="glyphicon glyphicon-book" aria-hidden="true"></span></h3>
+</div><!-- /.col Random Post Header -->
+
+<div class="col-xs-12" *ngFor="let post of posts">
+  <div class="col-xs-12">
+    <h1 *ngIf="post.title" (click)="selectPost(post.slug, post.id)" [innerHTML]="post.title"></h1>
+    <span  class="glyphicon glyphicon-user text-muted" aria-hidden="true"></span>
+    <span *ngIf="post.author" [innerHTML]="post.author">
+    </span><!-- /author -->
+    &nbsp;|&nbsp;
+    <span class="glyphicon glyphicon-time text-muted" aria-hidden="true"></span>
+    <span *ngIf="post.date_published" [innerHTML]="post.date_published">
+    </span><!-- /author -->
+    <hr>
+  </div><!-- /.col -->
+  <div class="col-xs-12">
+    <img src="{{post.thumbnail}}" alt="{{post.title}}" class="img-responsive img-thumbnail">
+  </div><!-- /.col -->
+  <div class="col-xs-12">
+    <article>
+      <p *ngIf="post.excerpt" [innerHTML]="post.excerpt"></p><!-- /p -->
+      <p>
+        <button *ngIf="post.slug" (click)="selectPost(post.slug, post.id)" class="btn btn-warning">Read more <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span></button><!-- /Read More -->
+      </p><!-- /p Read More -->
+      <hr>
+    </article><!-- /article -->
+  </div><!-- /.col -->
+</div><!-- /.col -->

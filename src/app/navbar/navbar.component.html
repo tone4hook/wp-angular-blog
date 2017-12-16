@@ -1,0 +1,35 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button (click)="navbarToggle($event)" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#wp-navbar-collapse" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" (click)="setPath('random', '')" routerLink="">{{blogTitle}}</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" [class.in]="in" id="wp-navbar-collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <ng-template ngFor post [ngForOf]="posts" let-i="index">
+          <ng-template [ngIf]="i < 1">
+            <ng-template ngFor slug [ngForOf]="posts[0].categories_all" let-j="index">
+              {{addRoutePaths('posts', posts[0].categories_all[j].slug)}}
+            </ng-template>
+            <ng-template ngFor slug [ngForOf]="posts[0].tags_all" let-k="index">
+              {{addRoutePaths('posts', posts[0].tags_all[k].slug)}}
+            </ng-template>
+            <ng-template ngFor name [ngForOf]="posts[0].menu_items" let-l="index">
+              <li>
+                <a *ngIf="posts[0].menu_items[l].term_id" (click)="setPath('cat', posts[0].menu_items[l].term_id)" routerLink="{{posts[0].menu_items[l].slug}}" routerLinkActive="active" [innerHTML]="posts[0].menu_items[l].name"></a>
+              </li>
+            </ng-template>
+          </ng-template>
+        </ng-template>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav><!-- /.navbar -->

@@ -1,0 +1,40 @@
+<!-- POST -->
+<div class="col-xs-12" *ngFor="let post of posts">
+  <div class="col-xs-12">
+    <h1 *ngIf="post.title" (click)="selectPost(post.slug, post.id)" [innerHTML]="post.title"></h1>
+  </div><!-- /.col -->
+  <div class="col-xs-12">
+    <img src="{{post.featured_image}}" alt="{{post.title}}" class="img-responsive">
+    <p></p>
+  </div>
+  <div class="col-xs-12">
+    <span class="glyphicon glyphicon-user text-muted" aria-hidden="true"></span>
+    <span *ngIf="post.author" [innerHTML]="post.author">
+    </span><!-- /author -->
+    &nbsp;|&nbsp;
+    <span class="glyphicon glyphicon-time text-muted" aria-hidden="true"></span>
+    <span *ngIf="post.date_published" [innerHTML]="post.date_published">
+    </span><!-- /date -->
+    <hr style="border-top: 1px solid #BDC0BA;">
+  </div><!-- /.col -->
+  <div class="col-xs-12">
+    <article>
+      <p *ngIf="post.content" [innerHTML]="post.content"></p><!-- /p -->
+      <p>
+    </article><!-- /article -->
+  </div><!-- /.col -->
+  <div class="col-xs-12">
+    <p></p>
+    <div class="btn-group" role="group" aria-label="categories">
+      <button *ngIf="post.categories[0].cat_name" (click)="navTo(post.categories[0].cat_slug)" class="btn btn-info" [innerHTML]="post.categories[0].cat_name"></button>
+    </div><!-- /.btn-group -->
+    <p></p>
+    <div class="btn-group" role="group" aria-label="tags">
+    <ng-template ngFor tag_name [ngForOf]="post.tags" let-i="index">
+      <button *ngIf="post.tags[i].tag_name" (click)="navTo(post.tags[i].tag_slug)" class="btn btn-default btn-sm" [innerHTML]="post.tags[i].tag_name"></button>
+    </ng-template>
+    </div><!-- /.btn-group -->
+    <hr>
+  </div><!-- /.col -->
+</div><!-- /.col -->
+<!-- /POST -->

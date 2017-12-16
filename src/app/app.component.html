@@ -1,0 +1,19 @@
+<!-- Bootstrap navbar fixed top -->
+<app-navbar [blog]="blog" [posts]="posts"></app-navbar>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-xs-12 col-sm-8">
+      <router-outlet></router-outlet>
+    </div><!-- /.col -->
+
+    <div class="col-xs-12 col-sm-4">
+      <app-sidebar [posts]="posts"></app-sidebar>
+    </div><!-- /.col -->
+
+  </div><!-- /.row -->
+</div><!--/.container -->
+<div class="container">
+  <app-footer [blog]="blog"></app-footer>
+</div><!--/.container -->
